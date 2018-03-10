@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Gezinge</string>
+    <string name="google_maps_key">AIzaSyC6FUx9gAPpzRFVEdwa6zvYmh7BdR1Mtwg</string>
+    <string name="title_activity_maps">Polygons</string>
+</resources>
