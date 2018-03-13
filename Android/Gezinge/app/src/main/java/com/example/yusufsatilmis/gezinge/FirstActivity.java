@@ -44,7 +44,7 @@ public class FirstActivity extends AppCompatActivity {
          Port2Text = findViewById(R.id.port2_editText);
 
 
-         ipText.setText("192.168.43.178");
+         ipText.setText("192.168.0.112");
         Port1Text.setText("9001");
         Port2Text.setText("9008");
 

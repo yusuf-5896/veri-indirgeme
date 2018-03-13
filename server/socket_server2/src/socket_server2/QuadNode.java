@@ -1,4 +1,4 @@
-
+package socket_server2;
 
 import java.awt.*;
 

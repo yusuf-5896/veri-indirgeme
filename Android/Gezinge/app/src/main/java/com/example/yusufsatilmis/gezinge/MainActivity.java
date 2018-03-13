@@ -569,13 +569,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                 JSONObject jsonObj = new JSONObject(response);
-//                JSONObject rate = jsonObj.getJSONObject("rate");
-  //              JSONObject time = jsonObj.getJSONObject("time");
+                JSONObject rate = jsonObj.getJSONObject("rate");
+                JSONObject time = jsonObj.getJSONObject("time");
 
-    //            Log.d("Yusuf -- rate-time", rate.get("ratee").toString() + "--" + time.get("timee").toString());
+                Log.d("Yusuf -- rate-time", rate.get("ratee").toString() + "--" + time.get("timee").toString());
 
-      //          time_s = time.get("timee").toString();
-        //        rate_s = rate.get("ratee").toString();
+                time_s = time.get("timee").toString();
+                rate_s = rate.get("ratee").toString();
 
                 JSONObject array = jsonObj.getJSONObject("array");
 

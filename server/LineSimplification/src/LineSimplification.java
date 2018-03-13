@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 public class LineSimplification {
 
@@ -38,76 +40,6 @@ public class LineSimplification {
 
 
 
-    private static class Point extends Pair<Double, Double> {
-        Point(Double key, Double value) {
-            super(key, value);
-        }
-
-        @Override
-        public String toString() {
-            return String.format("(%f, %f)", getKey(), getValue());
-        }
-    }
-
-    private static double perpendicularDistance(Point pt, Point lineStart, Point lineEnd) {
-        double dx = lineEnd.getKey() - lineStart.getKey();
-        double dy = lineEnd.getValue() - lineStart.getValue();
-
-        // Normalize
-        double mag = Math.hypot(dx, dy);
-        if (mag > 0.0) {
-            dx /= mag;
-            dy /= mag;
-        }
-        double pvx = pt.getKey() - lineStart.getKey();
-        double pvy = pt.getValue() - lineStart.getValue();
-
-        // Get dot product (project pv onto normalized direction)
-        double pvdot = dx * pvx + dy * pvy;
-
-        // Scale line direction vector and subtract it from pv
-        double ax = pvx - pvdot * dx;
-        double ay = pvy - pvdot * dy;
-
-        return Math.hypot(ax, ay);
-    }
-
-    private static void ramerDouglasPeucker(List<Point> pointList, double epsilon, List<Point> out) {
-        if (pointList.size() < 2) throw new IllegalArgumentException("Not enough points to simplify");
-
-        // Find the point with the maximum distance from line between the start and end
-        double dmax = 0.0;
-        int index = 0;
-        int end = pointList.size() - 1;
-        for (int i = 1; i < end; ++i) {
-            double d = perpendicularDistance(pointList.get(i), pointList.get(0), pointList.get(end));
-            if (d > dmax) {
-                index = i;
-                dmax = d;
-            }
-        }
-
-        // If max distance is greater than epsilon, recursively simplify
-        if (dmax > epsilon) {
-            List<Point> recResults1 = new ArrayList<>();
-            List<Point> recResults2 = new ArrayList<>();
-            List<Point> firstLine = pointList.subList(0, index + 1);
-            List<Point> lastLine = pointList.subList(index, pointList.size());
-            ramerDouglasPeucker(firstLine, epsilon, recResults1);
-            ramerDouglasPeucker(lastLine, epsilon, recResults2);
-
-            // build the result list
-            out.addAll(recResults1.subList(0, recResults1.size() - 1));
-            out.addAll(recResults2);
-            if (out.size() < 2) throw new RuntimeException("Problem assembling output");
-        } else {
-            // Just return start and end points
-            out.clear();
-            out.add(pointList.get(0));
-            out.add(pointList.get(pointList.size() - 1));
-        }
-    }
-
     public static void ekle(QuadNode dugum, double x, double y,int id) {
 
         int index = 0;
@@ -133,7 +65,7 @@ public class LineSimplification {
                     index = (int) (Math.random() * 13);
                     dugum.sagAlt = new QuadNode(x, y,id);
                     System.out.println("sagalt");
-                   // sayac++;
+                    // sayac++;
                 }
             } else if (x <= dugum.x && y >= dugum.y) {
                 if (dugum.solAlt != null) {
@@ -151,7 +83,7 @@ public class LineSimplification {
                     index = (int) (Math.random() * 13);
                     dugum.solUst = new QuadNode(x, y,id);
                     System.out.println("solust");
-                   // sayac++;
+                    // sayac++;
                 }
             }
 
@@ -160,42 +92,15 @@ public class LineSimplification {
     }
 
 
-    public static QuadNode arama(QuadNode kok1, int x, int y) {
-        String txt = "";
-
-        if (kok1 == null) {
-            return null;
-        }
-        if (kok1.x == x && kok1.y == y) {
-            return kok1;
-        }
-        if (arama(kok1.sagAlt, x, y) != null) {
-
-            return kok1;
-        }
-        if (arama(kok1.sagUst, x, y) != null) {
-
-            return kok1;
-        }
-        if (arama(kok1.solAlt, x, y) != null) {
-
-            return kok1;
-        }
-        if (arama(kok1.solUst, x, y) != null) {
-
-            return kok1;
-        }
-        return null;
-    }
 
 
     public static void dolas(QuadNode agac){
         if(agac==null)
             return;
         dolas(agac.sagAlt);
-      //  System.out.println("veri->"+agac.x+agac.y);
+        //  System.out.println("veri->"+agac.x+agac.y);
         dolas(agac.sagUst);
-       // System.out.println("veri->"+agac.x+agac.y);
+        // System.out.println("veri->"+agac.x+agac.y);
         dolas(agac.solAlt);
         System.out.println("veri->"+agac.x+" "+agac.y+" "+agac.id);
         koordinatX.add(agac.x);
@@ -212,11 +117,27 @@ public class LineSimplification {
         lat.clear();
         id.clear();
 
+        kok=null;
+        koordinatX.clear();
+        koordinaty.clear();
+        koordinatid.clear();
+        gelenkoordinatX.clear();
+        gelenkoordinaty.clear();
+        gelenkoordinatid.clear();
 
 
         System.out.println("SERVER BAŞLANTI İÇİN HAZIR...");
         //* Bağlantı sağlamadan program bir alt satırdaki kod parçasına geçmez (accept) *//
         clientSocket = serverSocket.accept();
+
+        Date now = new Date();
+        System.out.println(now.toString());
+
+        long startTime = System.currentTimeMillis();
+
+
+
+
 
         //* Client'a veri gönderimi için kullandığımız PrintWriter nesnesi oluşturulur *//
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -251,13 +172,17 @@ public class LineSimplification {
 
             }
 
+
             //Islemler burada yapılacak
 
 
             List<Point> pointList = new ArrayList<>(koordinatid.size());
 
 
-            System.out.println(koordinatid.size());
+            System.out.println(latlng.size());
+            System.out.println(id.size());
+            System.out.println(lat.size());
+            System.out.println(lng.size());
 
             for (int i = 0; i < id.size(); ++i) { //iterate over the elements of the list
                 double theXValue = Double.parseDouble(lat.get(i));
@@ -270,17 +195,8 @@ public class LineSimplification {
             }
 
             System.out.println(gelenkoordinatid.size());
-            /*
-            System.out.println(koordinatid);
-            System.out.println(koordinatX);
-            System.out.println(koordinaty);
 
-            System.out.println("\n\n\nasdkldsaljksdajkl\n\n\n");
 
-            System.out.println(id);
-            System.out.println(lat);
-            System.out.println(lng);
-*/
             for (int i=0;i<id.size();i++){
                 if(kok==null){
                     kok=new QuadNode(gelenkoordinatX.get(i),gelenkoordinaty.get(i),gelenkoordinatid.get(i));
@@ -290,21 +206,13 @@ public class LineSimplification {
             }
 
 
-    /*
-            kok=new QuadNode(-35.016,143.321,0);
-            ekle(kok, -34.747, 145.592,1);
-            ekle(kok, -34.364, 147.891,2);
-            ekle(kok, -33.501, 150.207,3);
-            ekle(kok, -32.306, 149.208,4);
-            ekle(kok, -32.491, 147.309,5);
-*/
 
 
 
-           // dolas(kok);
-           // dolas(kok);
+
+
             dolas(kok);
-           // System.out.println("X: "+koordinatX.get(0)+"Y: "+koordinaty.get(0)+"id "+koordinatid.get(0));
+
             System.out.println(gelenkoordinatid.size());
             System.out.println(koordinatid.size());
 
@@ -327,9 +235,10 @@ public class LineSimplification {
 
             System.out.println(pointList);
 
+            indirgeme indirgeme=new indirgeme();
 
             List<Point> pointListOut = new ArrayList<>();
-            ramerDouglasPeucker(pointList, 0.0001, pointListOut);
+            pointListOut= indirgeme.ramerDouglasPeucker(pointList, 0.00001, pointListOut);
             System.out.println("Points remaining after simplification:");
             System.out.println(pointListOut.get(0));
             pointListOut.forEach(System.out::println);
@@ -344,6 +253,18 @@ public class LineSimplification {
 
             JSONObject root = new JSONObject();
             JSONObject root2 = new JSONObject();
+            JSONObject time_json=new JSONObject();
+            JSONObject rate_json=new JSONObject();
+
+
+
+
+
+            long endTime = System.currentTimeMillis();
+            long estimatedTime = endTime - startTime; // Geçen süreyi milisaniye cinsinden elde ediyoruz
+            double seconds = (double)estimatedTime/1000; // saniyeye çevirmek için 1000'e bölüyoruz.
+            double outSize=pointListOut.size();
+            double inSize=pointList.size();
 
             for (int i = 0; i < pointListOut.size(); i++) {
 
@@ -354,20 +275,22 @@ public class LineSimplification {
                 latlng_response.put("lng", pointListOut.get(i).getValue());
                 root.put("latlng"+i, latlng_response);//i yerine id gelecek
                 System.out.println("id:  "+i+"X: "+pointListOut.get(i).getKey()+"Y: "+pointListOut.get(i).getValue());
-                //root.put(latlng.get(i), latlng_response);
+
             }
 
+            double oran=(1-(outSize/inSize))*100;
+            String result = String.format("%.2f", oran);
+            time_json.put("timee",seconds);
+            rate_json.put("ratee",result);
             root2.put("array", root);
-            //root2.put("time", firstTime-Lasttime);
-            //root2.put("indirgemeOrani", firstTime-Lasttime);
+            root2.put("time",time_json);
+            root2.put("rate",rate_json);
 
             System.out.println(root2.toString());
             System.out.println(root.length());
-
-            // System.out.println("----"+the_json_array.get(0));
-
-            //sayi = Integer.valueOf(clientGelen);
-            //out.println(sayi * sayi);
+            System.out.println(pointListOut.size());
+            System.out.println(root2.toString());
+            System.out.println(seconds);
             out.println(root2.toString());
 
 
@@ -391,7 +314,9 @@ public class LineSimplification {
 
 
         while(serverStatus){
+
             socket();
+
 
         }
 
@@ -400,27 +325,6 @@ public class LineSimplification {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
