@@ -195,22 +195,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 CircleOptions circleOptions = new CircleOptions();
 
-                // Specifying the center of the circle
                 circleOptions.center(clickCoords);
 
-                // Radius of the circle
                 circleOptions.radius(radius);
 
-                // Border color of the circle
                 circleOptions.strokeColor(0xFF0000FF);
 
-                // Fill color of the circle
                 circleOptions.fillColor(0x110000FF);
 
-                // Border width of the circle
                 circleOptions.strokeWidth(2);
 
-                // Adding the circle to the GoogleMap
                 map.addCircle(circleOptions);
                 stylePolylineOriginal();
                // miniDataResponse();
@@ -451,22 +445,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             CircleOptions circleOptions = new CircleOptions();
 
-            // Specifying the center of the circle
             circleOptions.center(mini);
 
-            // Radius of the circle
             circleOptions.radius(6);
 
-            // Border color of the circle
             circleOptions.strokeColor(Color.YELLOW);
 
-            // Fill color of the circle
             circleOptions.fillColor(Color.YELLOW);
 
-            // Border width of the circle
             circleOptions.strokeWidth(2);
 
-            // Adding the circle to the GoogleMap
+
             map.addCircle(circleOptions);
 
             // Log.d("Yusuf", i+". çizildi " );
@@ -480,22 +469,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             CircleOptions circleOptions = new CircleOptions();
 
-            // Specifying the center of the circle
             circleOptions.center(mini);
 
-            // Radius of the circle
             circleOptions.radius(4);
 
-            // Border color of the circle
             circleOptions.strokeColor(Color.GREEN);
 
-            // Fill color of the circle
             circleOptions.fillColor(Color.GREEN);
 
-            // Border width of the circle
             circleOptions.strokeWidth(2);
 
-            // Adding the circle to the GoogleMap
             map.addCircle(circleOptions);
 
             // Log.d("Yusuf", i+". çizildi " );

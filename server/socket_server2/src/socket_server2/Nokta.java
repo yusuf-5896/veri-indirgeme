@@ -10,13 +10,13 @@ package socket_server2;/*
  * @author munir
  */
 public class Nokta {
-    
-    double x,
-           y,
 
-        kose1x,
-        kose1y,
-        kose2x,
-        kose2y;
+    double x,
+            y,
+
+    kose1x,
+            kose1y,
+            kose2x,
+            kose2y;
     int id;
 }
