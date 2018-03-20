@@ -1,6 +1,10 @@
 # Veri İndirgeme
 Bu proje Kocaeli Üniversitesi 3.Sınıf Öğrencilerine 2017-2018 eğitim döneminde Yazılım Laboratuvarı dersinde ödev olarak verilmiştir. Projenin server kısmı IntelliJ IDEA, client kısmı ise Android Studio kullanırak geliştirilmiştir. 
 
+ --> [Münir KARSLI](https://github.com/munirKarsli/)
+
+ --> [Yusuf SATILMIŞ](https://github.com/satilmisyusuf/)
+
 
 ### Server
 ![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/gezinge2.png)
