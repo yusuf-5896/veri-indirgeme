@@ -21,6 +21,6 @@ Kullanıcı bağlantı için gerekli bilgileri girdikten sonra istediği bir ver
 Arama işlemi için seekbardan yarıçap seçtikten sonra harita üstünde herhangi bi yere dokunup aranmak istenen alanı seçmesi gereklidir. Arama işleminden sonra daire içinde kalan orjinal lat-long noktaları sarı ile indirgenmiş veriye ait noktalar ise yeşil ile gösterilmiştir.
 
 
-![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/listview_res.png) ![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/indirgeme_res.png)![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/arama1_res.png)![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/arama1_res.png)
+![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/listview_res.png) ![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/indirgeme_res.png)![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/arama1_res.png)![alt text](https://github.com/satilmisyusuf/veri-indirgeme/blob/master/images/arama2_res.png)
 
 
